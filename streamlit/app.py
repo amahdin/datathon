@@ -13,8 +13,16 @@ from PIL import Image
 # Set page configuration at the very beginning
 st.set_page_config(page_title='DinoDetector', page_icon='🦖', layout='wide')
 
+
+
 # Load model, set cache to prevent reloading
 @st.cache_resource(show_spinner=True)
+
+
+# Print current working directory and its contents for debugging
+st.write("Current working directory:", os.getcwd())
+st.write("Contents of the current directory:", os.listdir(os.getcwd()))
+
 def load_model():
     model = keras.models.load_model("models/dinosaur_classifier.keras")
     return model
