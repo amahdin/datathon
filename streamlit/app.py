@@ -15,7 +15,6 @@ st.set_page_config(page_title='DinoDetector', page_icon='🦖', layout='wide')
 
 # Load model, set cache to prevent reloading
 @st.cache_resource(show_spinner=True)
-model_path = "models/dinosaur_classifier.keras"
 def load_model():
     model = keras.models.load_model("models/dinosaur_classifier.keras")
     return model
