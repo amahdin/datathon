@@ -13,6 +13,9 @@ from PIL import Image
 # Set page configuration at the very beginning
 st.set_page_config(page_title='DinoDetector', page_icon='🦖', layout='wide')
 
+# Print working directory
+st.write(f"Current working directory: {os.getcwd()}")
+
 # Load model, set cache to prevent reloading
 @st.cache_resource(show_spinner=True)
 def load_model():
