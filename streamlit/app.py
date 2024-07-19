@@ -15,9 +15,13 @@ st.set_page_config(page_title='DinoDetector', page_icon='🦖', layout='wide')
 
 # Load model, set cache to prevent reloading
 @st.cache_resource(show_spinner=True)
-def load_model():
-    model = keras.models.load_model("models/dinosaur_classifier.keras")
-    return model
+model_path = "models/dinosaur_classifier.keras"
+if not os.path.exists(model_path):
+    st.error(f"Model file '{model_path}' not found. Current working directory: {os.getcwd()}")
+    st.stop()
+else:
+    model = keras.models.load_model(model_path)
+
 
 def load_image(image):
     img = tf.image.decode_image(image, channels=3)
