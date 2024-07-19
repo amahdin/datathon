@@ -16,7 +16,7 @@ st.set_page_config(page_title='DinoDetector', page_icon='🦖', layout='wide')
 # Load model, set cache to prevent reloading
 @st.cache_resource(show_spinner=True)
 def load_model():
-    model = keras.models.load_model("models/dinosaur_classifier.keras")
+    model = keras.models.load_model("/home/ubuntu/datathon/models/dinosaur_classifier.keras")
     return model
 
 def load_image(image):
@@ -43,7 +43,7 @@ def return_color_generator(NUM_COLORS, cmap='terrain'):
 # SOURCE: BugBytes from YouTube
 # caching data to avoid reloading data every time the page is refreshed with decorator
 @st.cache_data
-def read_data(data_loc='data/filtered_dino_fossil_locations.csv'):
+def read_data(data_loc='/home/ubuntu/datathon/data/filtered_dino_fossil_locations.csv'):
     data = list()
 
     # data frame of dinosaur fossil locations across the world
@@ -110,7 +110,7 @@ def main():
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
     # Dropdown for preselected images
-    test_imgs_dir = 'test_imgs'
+    test_imgs_dir = '/home/ubuntu/datathon/test_imgs'
     if os.path.exists(test_imgs_dir):
         preselected_images = os.listdir(test_imgs_dir)
         selected_image = st.selectbox("Or select a preselected image", preselected_images)
