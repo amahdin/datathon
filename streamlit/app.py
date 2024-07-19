@@ -13,13 +13,10 @@ from PIL import Image
 # Set page configuration at the very beginning
 st.set_page_config(page_title='DinoDetector', page_icon='🦖', layout='wide')
 
-# Print working directory
-st.write(f"Current working directory: {os.getcwd()}")
-
 # Load model, set cache to prevent reloading
 @st.cache_resource(show_spinner=True)
 def load_model():
-    model = keras.models.load_model("/models/dinosaur_classifier.keras")
+    model = keras.models.load_model("models/dinosaur_classifier.keras")
     return model
 
 def load_image(image):
@@ -68,6 +65,19 @@ def read_data(data_loc='data/filtered_dino_fossil_locations.csv'):
 
     return dino_fossil_locations, dino_class_to_color
 
+def add_legend(map_obj, class_to_color):
+    legend_html = '''
+    <div style="position: fixed;
+                bottom: 50px; left: 50px; width: 200px; height: auto;
+                background-color: white; z-index:9999; font-size:14px;
+                border:2px solid grey; border-radius:8px; padding: 10px;">
+                <h4 style="margin-top:0;">Legend</h4>
+    '''
+    for dino_class, color in class_to_color.items():
+        legend_html += f'<i style="background:{color}; width: 20px; height: 20px; display: inline-block;"></i> {dino_class}<br>'
+
+    legend_html += '</div>'
+    map_obj.get_root().html.add_child(folium.Element(legend_html))
 
 def main():
     # Create page header and description
